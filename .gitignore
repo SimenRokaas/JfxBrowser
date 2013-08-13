@@ -12,3 +12,4 @@
 # Eclipse special folders and files
 .project
 .classpath
+.settings/
