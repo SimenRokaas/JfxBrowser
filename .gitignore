@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+
+# IntelliJ IDEA special folders and files
+.idea/*
+*.iml
+
+# Eclipse special folders and files
+.project
+.classpath
