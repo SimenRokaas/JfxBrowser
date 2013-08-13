@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraintsBuilder;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
-        scene = new Scene(grid, 1200, 900, Color.GHOSTWHITE);
+        scene = new Scene(grid, Color.GHOSTWHITE);
         stage.setScene(scene);
         scene.getStylesheets().add("/no/rokaas/Browser.css");
         stage.show();
@@ -37,6 +38,7 @@ public class Main extends Application {
         grid.add(addressLabel, 0, 0, 1, 1);
 
         final TextField address = new TextField();
+        address.setMinHeight(22);
         grid.add(address, 1, 0, 1, 1);
 
         final Browser browser = new Browser(homePage);
@@ -50,6 +52,10 @@ public class Main extends Application {
             }
         });
         grid.add(browser, 0, 1, 2, 1);
+        grid.getColumnConstraints().addAll(
+                ColumnConstraintsBuilder.create().percentWidth(5).build(),
+                ColumnConstraintsBuilder.create().percentWidth(95).build()
+        );
         return grid;
     }
 
