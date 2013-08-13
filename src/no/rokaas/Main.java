@@ -21,7 +21,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
-        scene = new Scene(grid, Color.GHOSTWHITE);
+        scene = new Scene(grid, Color.BLUEVIOLET);
         stage.setScene(scene);
         scene.getStylesheets().add("/no/rokaas/Browser.css");
         stage.show();
