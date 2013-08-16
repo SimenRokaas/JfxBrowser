@@ -27,7 +27,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
-        scene = new Scene(grid, Color.BLUEVIOLET);
+        scene = new Scene(grid, Color.GHOSTWHITE);
         stage.setScene(scene);
         scene.getStylesheets().add("/no/rokaas/Browser.css");
         stage.show();
@@ -99,11 +99,7 @@ public class Main extends Application {
     }
 
     private static void redirectStreams() {
-        // preserve old stdout/stderr streams in case they might be useful
-        PrintStream stdout = System.out;
-        PrintStream stderr = System.err;
-
-        // now rebind stdout/stderr to logger
+        // rebind stdout/stderr to logger
         Logger logger;
         LoggingOutputStream los;
 
