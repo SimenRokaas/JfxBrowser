@@ -12,13 +12,19 @@ import javafx.scene.layout.ColumnConstraintsBuilder;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import no.rokaas.streamredirect.LoggingOutputStream;
+import no.rokaas.streamredirect.StdOutErrLevel;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.logging.*;
 
 public class Main extends Application {
     private Scene scene;
     private final static String homePage = "http://www.google.com";
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
         scene = new Scene(grid, Color.BLUEVIOLET);
@@ -75,7 +81,39 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        initLogging();
+        redirectStreams();
         launch(args);
     }
+
+    private static void initLogging() throws IOException {
+        // initialize logging to go to rolling log file
+        LogManager logManager = LogManager.getLogManager();
+        logManager.reset();
+
+        // log file max size 10K, 3 rolling files, append-on-open
+        Handler fileHandler = new FileHandler("log", 10000, 3, true);
+        fileHandler.setFormatter(new SimpleFormatter());
+        Logger.getLogger("").addHandler(fileHandler);
+    }
+
+    private static void redirectStreams() {
+        // preserve old stdout/stderr streams in case they might be useful
+        PrintStream stdout = System.out;
+        PrintStream stderr = System.err;
+
+        // now rebind stdout/stderr to logger
+        Logger logger;
+        LoggingOutputStream los;
+
+        logger = Logger.getLogger("stdout");
+        los = new LoggingOutputStream(logger, StdOutErrLevel.STDOUT);
+        System.setOut(new PrintStream(los, true));
+
+        logger = Logger.getLogger("stderr");
+        los = new LoggingOutputStream(logger, StdOutErrLevel.STDERR);
+        System.setErr(new PrintStream(los, true));
+    }
+
 }
