@@ -1,8 +1,6 @@
 package no.rokaas;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -49,13 +47,10 @@ public class Main extends Application {
 
         final Browser browser = new Browser(homePage);
         address.setText(browser.getLocation());
-        address.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                fixAddress(address);
-                browser.load(address.getText());
-                address.setText(browser.getLocation());
-            }
+        address.setOnAction(actionEvent -> {
+            fixAddress(address);
+            browser.load(address.getText());
+            address.setText(browser.getLocation());
         });
         grid.add(browser, 0, 1, 2, 1);
         grid.getColumnConstraints().addAll(
