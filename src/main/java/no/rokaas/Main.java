@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraintsBuilder;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -53,10 +53,11 @@ public class Main extends Application {
             address.setText(browser.getLocation());
         });
         grid.add(browser, 0, 1, 2, 1);
-        grid.getColumnConstraints().addAll(
-                ColumnConstraintsBuilder.create().percentWidth(5).build(),
-                ColumnConstraintsBuilder.create().percentWidth(95).build()
-        );
+        ColumnConstraints c1 = new ColumnConstraints();
+        c1.setPercentWidth(5);
+        ColumnConstraints c2 = new ColumnConstraints();
+        c2.setPercentWidth(95);
+        grid.getColumnConstraints().addAll(c1, c2);
         return grid;
     }
 
