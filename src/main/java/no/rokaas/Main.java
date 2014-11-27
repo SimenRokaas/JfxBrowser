@@ -6,15 +6,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import no.rokaas.streamredirect.LoggingOutputStream;
-import no.rokaas.streamredirect.StdOutErrLevel;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.logging.*;
 
 public class Main extends Application {
@@ -25,6 +23,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
+        stage.getIcons().add(new
+                Image(getClass().getResourceAsStream("/JfxBrowser16x16.png")));
         scene = new Scene(grid, Color.GHOSTWHITE);
         stage.setScene(scene);
         scene.getStylesheets().add("/no/rokaas/Browser.css");
@@ -79,7 +79,6 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         initLogging();
-        redirectStreams();
         launch(args);
     }
 
@@ -92,20 +91,6 @@ public class Main extends Application {
         Handler fileHandler = new FileHandler("log", 10000, 3, true);
         fileHandler.setFormatter(new SimpleFormatter());
         Logger.getLogger("").addHandler(fileHandler);
-    }
-
-    private static void redirectStreams() {
-        // rebind stdout/stderr to logger
-        Logger logger;
-        LoggingOutputStream los;
-
-        logger = Logger.getLogger("stdout");
-        los = new LoggingOutputStream(logger, StdOutErrLevel.STDOUT);
-        System.setOut(new PrintStream(los, true));
-
-        logger = Logger.getLogger("stderr");
-        los = new LoggingOutputStream(logger, StdOutErrLevel.STDERR);
-        System.setErr(new PrintStream(los, true));
     }
 
 }
