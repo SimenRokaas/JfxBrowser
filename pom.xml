@@ -38,6 +38,7 @@
                 <version>8.1.2</version>
                 <configuration>
                     <mainClass>no.rokaas.Main</mainClass>
+                    <nativeReleaseVersion>1.1</nativeReleaseVersion>
                     <verbose>true</verbose>
                 </configuration>
                 <!-- to make native installer: mvn clean jfx:native -->

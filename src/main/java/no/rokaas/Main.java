@@ -6,11 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import no.rokaas.i18n.IconSize;
+import no.rokaas.i18n.ImageFetcher;
 
 import java.io.IOException;
 import java.util.logging.*;
@@ -23,10 +24,9 @@ public class Main extends Application {
     public void start(Stage stage) {
         GridPane grid = getGridPane();
         stage.setTitle("JfxBrowser");
-        stage.getIcons().add(new
-                Image(getClass().getResourceAsStream("/JfxBrowser16x16.png")));
         scene = new Scene(grid, Color.GHOSTWHITE);
         stage.setScene(scene);
+        stage.getIcons().addAll(ImageFetcher.getIconSeries("application.icon", IconSize.values()));
         scene.getStylesheets().add("/no/rokaas/Browser.css");
         stage.show();
     }
