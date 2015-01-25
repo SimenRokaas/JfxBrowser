@@ -40,8 +40,16 @@
                     <mainClass>no.rokaas.Main</mainClass>
                     <nativeReleaseVersion>1.1</nativeReleaseVersion>
                     <verbose>true</verbose>
+                    <!-- properties for web deployment -->
+                    <keyStoreAlias>mittAlias</keyStoreAlias>
+                    <keyStorePassword>hemmelig</keyStorePassword>
+                    <allPermissions>true</allPermissions>
                 </configuration>
                 <!-- to make native installer: mvn clean jfx:native -->
+                <!-- to make web deployment: mvn clean jfx:web -->
+                <!-- to make test cert for web deployment:
+                     keytool -genkey -keyalg RSA -alias mittAlias -keystore keystore.jks -storepass hemmelig -validity 60 -keysize 2048
+                -->
             </plugin>
         </plugins>
     </build>
